@@ -1,4 +1,4 @@
-package advanced_slenium_practice;
+package advanced_selenium_practice;
 
 import java.time.Duration;
 import java.util.ArrayList;
