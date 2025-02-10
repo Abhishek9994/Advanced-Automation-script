@@ -41,8 +41,41 @@ public class StreamInSelenium {
 
 		Assert.assertTrue(originalList.equals(Sortedlist));
 
+		List<String> price;
+
+		// scan the name column with getText ->Beans->print the price of the Rice
+
+		do
+
+		{
+
+		List<WebElement> rows = driver.findElements(By.xpath("//tr/td[1]"));
+
+		price = rows.stream().filter(s -> s.getText().contains("Rice")).map(s -> getPriceVeggie(s)).collect(Collectors.toList());
+
+
+		price.forEach(a -> System.out.println(a));
+
+		if(price.size()<1)
+
+		{
+
+		driver.findElement(By.cssSelector("[aria-label='Next']")).click();
+
+		}
+
+		}while(price.size()<1);
+
+
+
+		}
+
+	private String getPriceVeggie(WebElement s) {
+		// TODO Auto-generated method stub
+		String price_value = s.findElement(By.xpath("following-sibling::td[1]")).getText();
+		return price_value;
 	}
-	
+
 	@AfterMethod
 	public void tearDown() {
 		driver.close();
