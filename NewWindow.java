@@ -1,18 +1,24 @@
 package advanced_selenium_practice;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WindowType;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.reporters.jq.Main;
 
+import com.mongodb.MapReduceCommand.OutputType;
+
 public class NewWindow {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
 		System.setProperty("webdriver.chrome.driver",
 				"C:\\Users\\patil\\Downloads\\chromedriver-win64 (2)\\chromedriver-win64\\chromedriver.exe");
@@ -36,9 +42,29 @@ public class NewWindow {
 				.getText();
 
 		driver.switchTo().window(ParentID);
-		driver.findElement(By.xpath("//input[@name='name']")).sendKeys(CourseName);
+		WebElement name=driver.findElement(By.cssSelector("[name='name']"));
 
-		driver.quit();
+		name.sendKeys(CourseName);
+
+		//Screenshot
+
+		File file=name.getScreenshotAs(org.openqa.selenium.OutputType.FILE);
+
+
+		FileUtils.copyFile(file, new File("logo.png"));
+
+
+		//driver.quit();
+
+
+		//GEt Height & Width
+
+		System.out.println(name.getRect().getDimension().getHeight());
+
+		System.out.println(name.getRect().getDimension().getWidth());
+		
+		
+//		driver.quit();
 
 	}
 
